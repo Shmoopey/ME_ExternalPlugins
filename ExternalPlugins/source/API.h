@@ -26,6 +26,17 @@ LIBRARY_API std::string ScripCuRunning2;
 //localPlayer
 LIBRARY_API uint64_t LocalPlayer;
 
+//ImGui use the premade function to subscribe a function to the render loop
+//or get the context first
+LIBRARY_API ImGuiContext* GetImGuiContext();
+LIBRARY_API void SubscribeToRenderEvent(std::function<void()> function);
+
+/// <summary>
+/// Should only be used for rendering ImGui
+/// heavy maffs will make the game chug
+/// </summary>
+void DrawImGui(std::function<void()> function);
+
 namespace OFF_ACT {
 
 	constexpr int GeneralObject_route00 = -80;//use item/action on object like bladed dive

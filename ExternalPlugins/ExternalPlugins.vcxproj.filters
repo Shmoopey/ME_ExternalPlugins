@@ -94,6 +94,9 @@
     <ClCompile Include="libs\imgui\backends\imgui_impl_win32.cpp">
       <Filter>Libs\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="API.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ExternalPlugins.rc">

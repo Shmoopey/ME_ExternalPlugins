@@ -1,5 +1,5 @@
-#include <iostream>
-#include "../source/API.h"
+﻿#include <iostream>
+#include "API.h"
 #include <random>
 #include <filesystem>
 #include <thread>
@@ -46,57 +46,47 @@ static void idleCheck() {
 	}
 }
 
+static std::string getTime() {
+	//RunTime
+	std::time_t currentTime = std::time(nullptr);
+
+	//run time in seconds
+	int runTime = static_cast<int>(std::difftime(currentTime, startTime));
+
+	//hh:mm:ss format
+	int hours = runTime / 3600;
+	int minutes = (runTime % 3600) / 60;
+	int seconds = runTime % 60;
+
+	//run time as string
+	std::ostringstream oss;
+	oss << std::setfill('0') << std::setw(2) << hours << ":"
+		<< std::setfill('0') << std::setw(2) << minutes << ":"
+		<< std::setfill('0') << std::setw(2) << seconds;
+	std::string timeStr = oss.str();
+	return timeStr;
+}
+
 
 static int getGainedCount(int start, int current) {
 	return current - start;
 }
-
-//UI
-static ImColor purpCol = ImColor(120, 0, 128);
-static ImColor backCol = ImColor(0, 0, 0, 120);
-
-
-static void DrawGui() {
-	IG_answer backDrop{};
-	backDrop.box_name = "backDrop";
-	backDrop.box_start = { 0, 50, 0 };
-	backDrop.box_size = { 300, 200, 0 };
-	backDrop.colour = backCol;
-
-	IG_answer titleText{};
-	titleText.box_name = "titleText";
-	titleText.box_start = { 70, 65, 0 };
-	titleText.colour = purpCol;
-
-	while (LoopyLoop && !Endall) {
-
-		//RunTime
-		std::time_t currentTime = std::time(nullptr);
-
-		//run time in seconds
-		int runTime = static_cast<int>(std::difftime(currentTime, startTime));
-
-		//hh:mm:ss format
-		int hours = runTime / 3600;
-		int minutes = (runTime % 3600) / 60;
-		int seconds = runTime % 60;
-
-		//run time as string
-		std::ostringstream oss;
-		oss << std::setfill('0') << std::setw(2) << hours << ":"
-			<< std::setfill('0') << std::setw(2) << minutes << ":"
-			<< std::setfill('0') << std::setw(2) << seconds;
-		std::string timeStr = oss.str();
-
-
-
-		//UI
-		IG::DrawSquareFilled(true, &backDrop);
-		titleText.string_value = "Timer: " + timeStr;
-		IG::DrawTextAt(false, &titleText);
-
-		Sleep(1000);
+//UI Example
+void  onDraw() {
+	ImGui::Begin("AutoDivination", 0);
+	ImGui::Text("Timer %s", getTime());
+	if (ImGui::BeginChild("Artistic", ImVec2(800, 500), true)) {
+		ImGui::Text("     ^     ");
+		ImGui::Text("    ^^^    ");
+		ImGui::Text("   ^^^^^   ");
+		ImGui::Text("  ^^^^^^^  ");
+		ImGui::Text(" ^^^^^^^^^ ");
+		ImGui::Text("^^^^^^^^^^^");
+		ImGui::Text("^^^^^^^^^^^^");
+		ImGui::Text("     ||     ");
 	}
+
+	ImGui::End();
 }
 
 
@@ -108,8 +98,7 @@ void AutoDivination() {
 	vector <AllObject>EnrichedSpring;
 	vector <AllObject>RegularSpring;
 
-	std::thread guiLoop(DrawGui);
-	guiLoop.detach();
+	DrawImGui(onDraw);
 
 	while (LoopyLoop && !Endall) {
 		idleCheck();
