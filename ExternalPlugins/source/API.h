@@ -608,6 +608,18 @@ namespace ME {
 	//Reads inventory content and stores it in: InvArr
 	LIBRARY_API std::vector<IInfo> ReadInvArrays33();
 
+	//Reads cont
+	LIBRARY_API std::vector<inv_Container> GetContainerSettings();
+
+	//Reads, replacement for ReadInvArrays33
+	LIBRARY_API std::vector<IInfo> Container_Inventory();
+
+	//Get container vector data
+	LIBRARY_API std::vector<WPOINT> Container_Get_all(int cont_id);
+
+	//Get container single target
+	LIBRARY_API WPOINT Container_Get_s(int cont_id, int item_id);
+
 	//
 	LIBRARY_API bool OpenEquipInterface2();
 
@@ -1422,6 +1434,8 @@ namespace MEX {
 	LIBRARY_API bool ToggleSkillsPanelVisibility();
 
 	// id starts at 0, goes left to right, top to bottom. Attack is 0 smithing is 5
+	LIBRARY_API int GetBoostedSkillLevel(int id, int currentLevel);
+
 	LIBRARY_API int GetBoostedSkillLevel(int id);
 
 	// id starts at 0, goes left to right, top to bottom. Attack is 0 smithing is 5

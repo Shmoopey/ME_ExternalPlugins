@@ -140,6 +140,11 @@ struct VB {
 		attached_prev_addr{ _attached_prev_addr }, attached_prev_id{ _attached_prev_id }, attached{ _attached }, attached_Alt{ _attached_Alt } {}
 };
 
+struct inv_Container {
+	int id = 0;
+	std::vector<WPOINT> data;//id and stack
+};
+
 //for RefVarpBits444 return
 struct VBreturn {
 	uint64_t SettingsAddr = 0;
