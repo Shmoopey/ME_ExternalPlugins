@@ -37,27 +37,32 @@ LIBRARY_API void SubscribeToRenderEvent(std::function<void()> function);
 /// </summary>
 void DrawImGui(std::function<void()> function);
 
+//some general offsets for doaction
 namespace OFF_ACT {
 
 	constexpr int GeneralObject_route00 = -80;//use item/action on object like bladed dive
 	constexpr int GeneralObject_route0 = 0;//General action on some objects, like bank chest
 	constexpr int GeneralObject_route1 = 80;//General action on some objects
 	constexpr int GeneralObject_route2 = 160;//General action on some objects
-	constexpr int BladedDiveNPC_route = 1408;//do bladed dive to npc
-	constexpr int InteractNPC_route = 3120;//default interact npc 0x29 
-	constexpr int AttackNPC_route = 3216;//default attack npc 
-	constexpr int Pickup_route = 4080;//default item pickup
-	constexpr int Walk_route = 4320;//walk to tile 
-	constexpr int Bladed_interface_route = 4416;//special interface route for bladed dive, familiar attack, use in inventory..items that can actualy do something use GeneralInterface_route
-	constexpr int GeneralInterface_Choose_option = 4496;//option in chat box
-	constexpr int GeneralInterface_Choose_jewelry = 4496;//teleport jewelry//chat box?
-	constexpr int Vs_player_attack_route = 4656;//
-	constexpr int GeneralInterface_route = 5376;//General action on lootwindow, also most interfaces
-	constexpr int GeneralInterface_route1 = 5456;//note stuff, use item on empty inv spot, use item on item
-	constexpr int GeneralInterface_route2 = 6096;//take bob/store bob/drop items
-	constexpr int Vs_player_follow_route = 7216;//old
-	constexpr int Vs_player_trade_route = 7296;//old
-	constexpr int Special_walk_route = 5536;//Bladed dive teleport
+	constexpr int GeneralObject_route3 = 240;//General action on some objects
+	constexpr int BladedDiveNPC_route = 1392;//do bladed dive to npc
+	constexpr int InteractNPC_route = 1488;//default interact npc 0x29 
+	constexpr int AttackNPC_route = 1600;//default attack npc
+	constexpr int InteractNPC_route2 = 1696;//second option
+	constexpr int InteractNPC_route3 = 1776;//third option
+	constexpr int InteractNPC_route4 = 1888;//fourth option
+	constexpr int Pickup_route = 2464;//default item pickup
+	constexpr int Walk_route = 2752;//walk to tile 
+	constexpr int Bladed_interface_route = 2832;//special interface route for bladed dive, familiar attack, use in inventory..items that can actualy do something use GeneralInterface_route
+	constexpr int GeneralInterface_Choose_option = 2912;//option in chat box
+	constexpr int GeneralInterface_Choose_jewelry = 2912;//teleport jewelry//chat box?
+	constexpr int Vs_player_attack_route = 3072;//
+	constexpr int GeneralInterface_route = 3808;//General action on lootwindow, also most interfaces
+	constexpr int GeneralInterface_route1 = 3888;//note stuff, use item on empty inv spot, use item on item
+	constexpr int GeneralInterface_route2 = 4528;//take bob/store bob/drop items
+	constexpr int Vs_player_follow_route = 5648;//old
+	constexpr int Vs_player_trade_route = 5728;//old
+	constexpr int Special_walk_route = 3968;//Bladed dive teleport
 
 };
 
@@ -561,7 +566,16 @@ namespace ME {
 	LIBRARY_API void Send_MouseRightClick(int sleep, int random);
 
 	//
+	LIBRARY_API void Post_MouseMove(int x, int y);
+
+	//
+	LIBRARY_API void Post_MouseMoveAtoB(int x, int y);
+
+	//
 	LIBRARY_API void Post_MouseLeftClick(int x, int y, int sleep, int random);
+
+	//
+	LIBRARY_API void Post_MouseLeftClick_AtoB(int x, int y, int sleep, int random);
 
 	//
 	LIBRARY_API void Post_MouseRightClick(int x, int y, int sleep, int random);
