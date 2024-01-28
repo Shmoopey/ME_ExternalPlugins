@@ -19,7 +19,7 @@
 //Main loop
 LIBRARY_API bool LoopyLoop;
 //Unloads everything and closes
-LIBRARY_API  bool Endall;
+LIBRARY_API bool Endall;
 //Text displayed in the ME window
 LIBRARY_API std::string ScripCuRunning1;
 LIBRARY_API std::string ScripCuRunning2;
@@ -1304,6 +1304,11 @@ namespace MEX {
 
 	//
 	LIBRARY_API AllObject GetAllObj_dist(int obj, int distance, int type, WPOINT adjust_tile);
+
+	LIBRARY_API std::unordered_map<int, int> GetExchangePrice(const std::vector<int> itemIds);
+
+	//
+	LIBRARY_API int GetExchangePrice(int itemid);
 
 	//
 	LIBRARY_API bool BankGetVisItemsPrint();
