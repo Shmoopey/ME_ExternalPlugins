@@ -671,7 +671,7 @@ namespace ME {
 	LIBRARY_API std::bitset<32> VB_GetBits(int ID);
 
 	//
-	LIBRARY_API int VB_GetBit(int ID, int at);
+	LIBRARY_API int VB_GetBit(int ID, int at, int FSarray = -1);
 
 	//read varpbit directly
 	LIBRARY_API VB VB_ReadBits(VB bitaddr);
@@ -1095,9 +1095,6 @@ namespace ME {
 
 	//
 	LIBRARY_API std::vector<IInfo> ScanForInterfaceTest2Get(bool target_under, std::vector<InterfaceComp5> lv_ID);
-
-	//gets game status. if in game 3, if lobby 2, if logged out 1, unknown 0
-	LIBRARY_API int GetGameState();
 
 	//gets game status. if in game 3, if lobby 2, if logged out 1, unknown 0, loading 4
 	LIBRARY_API int GetGameState2();
