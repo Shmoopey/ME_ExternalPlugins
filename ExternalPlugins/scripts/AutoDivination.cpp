@@ -1,9 +1,6 @@
-﻿#include <iostream>
-#include "API.h"
-#include <random>
+﻿#include "API.h"
 #include <filesystem>
-#include <thread>
-using namespace std;
+#include <iostream>
 
 
 static const int MAX_IDLE_TIME_MINUTES = 5;
@@ -23,7 +20,7 @@ static int totalGained;
 //15451 Fire spirit
 //find random events, and click them
 static bool RandomEvents() {
-	std::vector <AllObject> F_obj = ME::GetAllObjArrayInteract({ 19884, 26022, 27228, 27297, 28411, 30599, 15451, 18204 }, 20, 1);
+	std::vector <AllObject> F_obj = ME::GetAllObjArrayInteract({ 19884, 26022, 27228, 27297, 28411, 30599, 15451, 18204 }, 20, { 1 });
 	if (!F_obj.empty()) {
 		std::cout << "Random event object detected: trying to click" << std::endl;
 		//if(ME::Math_AO_ValueEqualsArr({18204,18205,19884,26022,27228,27297,28411,30599 }, F_obj)) {//if seperation is needed
@@ -93,10 +90,10 @@ void  onDraw() {
 void AutoDivination() {
 
 	static int startCount = ME::InvItemcountStack_String("energy");
-	vector <AllObject>EnergyRiftOpen;
-	vector <AllObject>EnergyRift;
-	vector <AllObject>EnrichedSpring;
-	vector <AllObject>RegularSpring;
+	vector<AllObject>EnergyRiftOpen;
+	vector<AllObject>EnergyRift;
+	vector<AllObject>EnrichedSpring;
+	vector<AllObject>RegularSpring;
 
 	DrawImGui(onDraw);
 
@@ -112,14 +109,14 @@ void AutoDivination() {
 
 		if (ME::InvFull_()) {
 			ScripCuRunning1 = "Looking to convert";
-			EnergyRiftOpen = ME::GetAllObjArrayInteract({ 93489 }, 40, 0);
+			EnergyRiftOpen = ME::GetAllObjArrayInteract({ 93489 }, 40, { 0 });
 			if (!EnergyRiftOpen.empty()) {
 				Sleep(300 + rand() % 300);
 				DO::DoAction_Object_Direct(0xc8, OFF_ACT::GeneralObject_route0, EnergyRiftOpen.front());
 				Sleep(300 + rand() % 300);
 			}
 			else {
-				EnergyRift = ME::GetAllObjArrayInteract({ 87306 }, 40, 0);
+				EnergyRift = ME::GetAllObjArrayInteract({ 87306 }, 40, { 0 });
 				if (!EnergyRift.empty()) {
 					Sleep(300 + rand() % 300);
 					DO::DoAction_Object_Direct(0xc8, OFF_ACT::GeneralObject_route0, EnergyRift.front());
@@ -131,14 +128,18 @@ void AutoDivination() {
 		else {
 			if (!ME::CheckAnim(100) && !ME::ReadPlayerMovin()) {
 				ScripCuRunning1 = "Catching energy";
-				EnrichedSpring = ME::GetAllObjArrayInteract_str({ "Enriched" }, 40, 1);
+				EnrichedSpring = ME::GetAllObjArrayInteract_str({ "Enriched" }, 40, { 1 });
+				RegularSpring = ME::GetAllObjArrayInteract_str({ "spring","wisp" }, 40, { 1 });
+				std::cout <<"Reg" << RegularSpring.size() << endl;
+				std::cout <<"Enriched" << EnrichedSpring.size() << endl;
 				if (!EnrichedSpring.empty()) {
 					Sleep(300 + rand() % 300);
 					DO::DoAction_NPC__Direct(0xc8, OFF_ACT::InteractNPC_route, EnrichedSpring.front());
 					Sleep(300 + rand() % 300);
 				}
 				else {
-					RegularSpring = ME::GetAllObjArrayInteract_str({ "spring","wisp" }, 40, 1);
+					RegularSpring = ME::GetAllObjArrayInteract_str({ "spring","wisp" }, 40, { 1 });
+					std::cout << RegularSpring.size() << endl;
 					if (!RegularSpring.empty()) {
 						Sleep(300 + rand() % 300);
 						DO::DoAction_NPC__Direct(0xc8, OFF_ACT::InteractNPC_route, RegularSpring.front());

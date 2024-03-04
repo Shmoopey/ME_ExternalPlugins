@@ -123,39 +123,44 @@ struct VB {
 	uint64_t addr = 0;
 	uint64_t indexaddr_orig = 0;
 	int id = 0;
-	int stateAlt = 0;
-	uint64_t addrAlt = 0;
-	uint64_t indexaddr_origAlt = 0;
-	int idAlt = 0;
-	int SumOfstate = 0;
-	uint64_t attached_prev_addr = 0;
-	int attached_prev_id = 0;
-	bool attached = false;
-	bool attached_Alt = false;
+	int FSarray = 0;
+	int Levels_deep = 0;
 
 	VB() = default;
-	VB(int _state, uint64_t _addr, uint64_t _indexaddr_orig, int _id, int _stateAlt, uint64_t _addrAlt, uint64_t _indexaddr_origAlt, int _idAlt, int _SumOfstate,
-		uint64_t _attached_prev_addr, int _attached_prev_id, bool _attached, bool _attached_Alt) :
-		state{ _state }, addr{ _addr }, indexaddr_orig{ _indexaddr_orig }, id{ _id }, stateAlt{ _stateAlt }, addrAlt{ _addrAlt }, indexaddr_origAlt{ _indexaddr_origAlt }, idAlt{ _idAlt }, SumOfstate{ _SumOfstate },
-		attached_prev_addr{ _attached_prev_addr }, attached_prev_id{ _attached_prev_id }, attached{ _attached }, attached_Alt{ _attached_Alt } {}
+	VB(int _state, uint64_t _addr, uint64_t _indexaddr_orig, int _id, char array, char _FSarray, char _Levels_deep) :
+		state{ _state }, addr{ _addr }, indexaddr_orig{ _indexaddr_orig }, id{ _id }, FSarray{ _FSarray }, Levels_deep{ _Levels_deep } {}
+};
+
+
+struct inv_Container_struct {
+	int item_id = 0;
+	int item_stack = 0;
+	int item_slot = 0;
+	std::vector<uint64_t> Extra_mem{};
+	std::vector<int> Extra_ints{};
+	inv_Container_struct() = default;
+	inv_Container_struct(int _item_id, int _item_stack, int _item_slot, std::vector<uint64_t> _Extra_mem, std::vector<int> _Extra_ints) :
+		item_id{ _item_id }, item_stack{ _item_stack }, item_slot{ _item_slot }, Extra_mem{ _Extra_mem }, Extra_ints{ _Extra_ints } {}
 };
 
 struct inv_Container {
-	int id = 0;
-	std::vector<WPOINT> data;//id and stack
+	int id = 0;//somekind of container id
+	uint64_t mem = 0;//
+	std::vector<inv_Container_struct> ID_stack;//item id, stacksize, order, extra
+	inv_Container() = default;
+	inv_Container(int _id, inv_Container_struct _ID_stack) :
+		id{ _id }, ID_stack{ _ID_stack } {}
 };
 
 //for RefVarpBits444 return
 struct VBreturn {
 	uint64_t SettingsAddr = 0;
 	uint64_t SettingsAddrspot = 0;
-	uint64_t SettingsAddr_Att = 0;
 	int SettingsState = 0;
 	int SettingsId = 0;
-	int SettingsId_Att = 0;
-	bool attached = false;
+	int FSarray = 0;//0-1
+	int Levels_deep = 0;//0-1
 };
-
 
 //for dung
 struct DungMap {
@@ -331,17 +336,17 @@ struct Abilitybar {
 
 // holds details about skills. id, name, varbit, total xp, current level, boosted level
 struct Skill {
-	int idx;
+	int interfaceIdx;
+	int id;
 	std::string name;
 	int vb;
 	int xp;
 	int level;
 	int boostedLevel;
 	Skill() = default;
-	Skill(int _idx = -1, std::string _name = "", int _vb = -1, int _xp = -1, int _level = -1, int _boostedLevel = -1) :
-		idx{ _idx }, name{ _name }, vb{ _vb }, xp{ _xp }, level{ _level }, boostedLevel{ _boostedLevel } {}
+	Skill(int _idx = -1, int _id = -1, std::string _name = "", int _vb = -1, int _xp = -1, int _level = -1, int _boostedLevel = -1) :
+		interfaceIdx{ _idx }, id{ _id }, name{ _name }, vb{ _vb }, xp{ _xp }, level{ _level }, boostedLevel{ _boostedLevel } {}
 };
-
 //input and output
 struct IG_answer {
 	std::string box_name{};//name

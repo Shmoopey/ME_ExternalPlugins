@@ -9,6 +9,8 @@
 //#include "RenderEvent.h"
 #include "imgui.h"
 
+using namespace std;
+
 #ifdef LIBRARY_EXPORTS
 #    define LIBRARY_API extern "C++" __declspec(dllexport)
 #else
@@ -493,16 +495,16 @@ namespace ME {
 	LIBRARY_API bool ClickAllObj(std::vector<AllObject> AllStuff2, int accuracy, bool usemap, int action, std::vector<std::string> sidetext);
 
 	//look for specific objects, return all data 
-	LIBRARY_API std::vector<AllObject> GetAllObjArray(std::vector<int> obj, int maxdistance, int object_type1);
+	LIBRARY_API std::vector<AllObject> GetAllObjArray(std::vector<int> obj, int maxdistance, vector< int> types);
 
 	//look for specific objects, return all data, check if action text is there
-	LIBRARY_API std::vector<AllObject> GetAllObjArrayInteract(std::vector<int> obj, int maxdistance, int object_type1);
+	LIBRARY_API std::vector<AllObject> GetAllObjArrayInteract(std::vector<int> obj, int maxdistance, vector< int> types);
 
 	//
-	LIBRARY_API std::vector<AllObject> GetAllObjArrayInteract_str(std::vector<std::string> obj, int maxdistance, int object_type1);
+	LIBRARY_API std::vector<AllObject> GetAllObjArrayInteract_str(std::vector<std::string> obj, int maxdistance, vector< int> types);
 
 	//
-	LIBRARY_API std::vector<AllObject> GetAllObjArray(std::vector<int> obj, int maxdistance, int object_type1, WPOINT tile);
+	LIBRARY_API std::vector<AllObject> GetAllObjArray(std::vector<int> obj, int maxdistance, vector< int> types, WPOINT tile);
 
 	//check tile for any disruptive object, returns false if nothing is found
 	LIBRARY_API bool CheckTileforObjects(WPOINT tile);
@@ -617,7 +619,7 @@ namespace ME {
 	LIBRARY_API bool SideTextEq(std::vector<std::string> text);
 
 	//active obj 0, npc 1, player 2, grounditems 3, pro 5, decor 12
-	LIBRARY_API std::vector<AllObject> ReadAllObjectsArray(bool piority = false, int type = -1);
+	LIBRARY_API std::vector<AllObject> ReadAllObjectsArray(vector< int> types, vector< int> ids, vector< std::string> name_strings = {});
 
 	//Reads inventory content and stores it in: InvArr
 	LIBRARY_API std::vector<IInfo> ReadInvArrays33();
