@@ -25,8 +25,8 @@ LIBRARY_API bool Endall;
 //Text displayed in the ME window
 LIBRARY_API std::string ScripCuRunning1;
 LIBRARY_API std::string ScripCuRunning2;
-LIBRARY_API bool DrawLogs;
-LIBRARY_API bool DrawTrackedSkills;
+//LIBRARY_API bool DrawLogs;
+//LIBRARY_API bool DrawTrackedSkills;
 LIBRARY_API bool fake_mouse_do;//generate fake reports
 
 
