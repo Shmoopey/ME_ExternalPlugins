@@ -94,7 +94,6 @@ void AutoDivination() {
 	vector<AllObject>EnergyRift;
 	vector<AllObject>EnrichedSpring;
 	vector<AllObject>RegularSpring;
-
 	DrawImGui(onDraw);
 
 	while (LoopyLoop && !Endall) {
@@ -116,7 +115,7 @@ void AutoDivination() {
 				Sleep(300 + rand() % 300);
 			}
 			else {
-				EnergyRift = ME::GetAllObjArrayInteract({ 87306 }, 40, { 0 });
+				EnergyRift = ME::GetAllObjArrayInteract({ 87306 }, 40, { 12 });
 				if (!EnergyRift.empty()) {
 					Sleep(300 + rand() % 300);
 					DO::DoAction_Object_Direct(0xc8, OFF_ACT::GeneralObject_route0, EnergyRift.front());
